@@ -1,0 +1,12 @@
+engines:
+  tslint:
+    enabled: true
+ratings:
+   paths:
+   - server/**
+   - config/**
+   - "**.ts"
+   - "**.js"
+exclude_paths:
+- node_modules/**/*
+- server/tests/**

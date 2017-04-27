@@ -4,19 +4,19 @@ export default {
   // POST /api/teams
   createTeam: {
     body: {
-      name: Joi.string().required(),
       description: Joi.string().optional(),
-    }
+      name: Joi.string().required(),
+    },
   },
 
   // UPDATE /api/teams/:teamsId
   updateTeam: {
     body: {
-      name: Joi.string().required(),
       description: Joi.string().optional(),
+      name: Joi.string().required(),
     },
     params: {
-      teamId: Joi.string().hex().required()
-    }
+      teamId: Joi.string().hex().required(),
+    },
   },
 };

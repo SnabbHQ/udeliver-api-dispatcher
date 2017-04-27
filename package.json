@@ -8,6 +8,7 @@
     "type": "git"
   },
   "scripts": {
+    "lint": "yarn run tslint \"server/**/*.ts\"",
     "start": "concurrently \"npm run tsc:w\" \"nodemon dist/app.js\"",
     "tsc:w": "tsc -w",
     "test": "tsc & mocha server/tests/ --recursive --color --growl",
@@ -33,6 +34,7 @@
     "mockgoose": "^6.0.8",
     "mongoose": "^4.6.1",
     "morgan": "^1.8.1",
+    "tslint-eslint-rules": "4.0.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
@@ -56,6 +58,7 @@
     "mocha": "^2.5.3",
     "nodemon": "^1.10.0",
     "supertest": "^3.0.0",
+    "tslint": "5.1.0",
     "typescript": "^2.1.1"
   }
 }

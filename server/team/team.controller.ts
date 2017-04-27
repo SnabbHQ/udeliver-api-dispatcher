@@ -4,7 +4,7 @@ import { Team } from './team.model';
  * Load team and append to req.
  */
 function load(req, res, next, id) {
-  Team.get(id).then((team) => {
+  Team.get(id).then(team => {
     req.team = team; // eslint-disable-line no-param-reassign
     return next();
   }).catch(e => next(e));
@@ -26,8 +26,8 @@ function get(req, res) {
  */
 function create(req, res, next) {
   const team = new Team({
+    description: req.body.description,
     name: req.body.name,
-    description: req.body.description
   });
 
   team.save().then(savedTeam => res.json(savedTeam)).catch(e => next(e));
@@ -56,7 +56,7 @@ function update(req, res, next) {
 function list(req, res, next) {
   const {
     limit = 50,
-    skip = 0
+    skip = 0,
   } = req.query;
   Team.list({ limit, skip }).then(teams => res.json(teams)).catch(e => next(e));
 }
@@ -78,5 +78,5 @@ export default {
   create,
   update,
   list,
-  remove
+  remove,
 };

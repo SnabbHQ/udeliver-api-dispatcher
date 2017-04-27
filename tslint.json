@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules"
+  ],
+	"rules": {
+    // "no-unused-vars": true, Still deprecated but will change soon https://github.com/palantir/tslint/issues/1481
+    "no-unused-expression": true,
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "ter-indent": [
+      true,
+      2,
+      {
+        "FunctionExpression": {
+          "parameters": 1,
+          "body": 1
+      }
+  }
+]
+	}
+}

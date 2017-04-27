@@ -1,39 +1,39 @@
-import { Schema, Document, Model, model } from "mongoose";
+import { Document, Model, model, Schema } from 'mongoose';
 import APIResponse from '../utils/APIResponse';
 
 export interface ITeam extends Document {
-    name: string,
-    description: string,
-    createdAt: Date;
+  name: string;
+  description: string;
+  createdAt: Date;
 }
 
 export interface IList {
-    limit: number;
-    skip: number;
+  limit: number;
+  skip: number;
 }
 
 export interface ITeamModel {
-    get(id: string): Promise<ITeam>;
-    list(param: IList): Promise<Array<ITeam>>;
+  get(id: string): Promise<ITeam>;
+  list(param: IList): Promise<ITeam[]>;
 }
 
 /**
  * Team Schema
  */
 const schema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    index: { unique: true }
+  createdAt: {
+    default: Date.now,
+    type: Date,
   },
   description: {
+    required: false,
     type: String,
-    required: false
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
+  name: {
+    index: { unique: true },
+    required: true,
+    type: String,
+  },
 });
 
 /**
@@ -47,9 +47,9 @@ const schema = new Schema({
  * Statics
  */
 schema.statics = {
-  
+
   get(id) {
-    return this.findById(id).exec().then((team) => {
+    return this.findById(id).exec().then(team => {
       if (team) {
         return team;
       }
@@ -66,14 +66,12 @@ schema.statics = {
    */
   list({
     skip = 0,
-    limit = 50
+    limit = 50,
   } = {}) {
     return this.find().sort({ createdAt: -1 }).skip(+skip).limit(+limit)
     .exec();
-  }
+  },
 };
 
 export type TeamModel = Model<ITeam> & ITeamModel;
-export const Team: TeamModel = <TeamModel>model<ITeam>("Team", schema);
-
-
+export const Team: TeamModel = model<ITeam>('Team', schema) as TeamModel;

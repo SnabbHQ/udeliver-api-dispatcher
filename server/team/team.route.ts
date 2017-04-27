@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as validate from 'express-validation';
-import paramValidation from './team.param-validation';
 import teamCtrl from './team.controller';
+import paramValidation from './team.param-validation';
 
 const router = express.Router(); // eslint-disable-line new-cap
 

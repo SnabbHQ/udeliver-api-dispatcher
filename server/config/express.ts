@@ -1,20 +1,20 @@
-import * as express from 'express';
-import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
 import * as compress from 'compression';
-import * as methodOverride from 'method-override';
+import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
-import * as httpStatus from 'http-status';
-import * as expressWinston from 'express-winston';
+import * as express from 'express';
 import * as expressValidation from 'express-validation';
+import * as expressWinston from 'express-winston';
 import * as helmet from 'helmet';
+import * as httpStatus from 'http-status';
+import * as methodOverride from 'method-override';
+import * as logger from 'morgan';
 
-import winstonInstance from './winston';
 import routes from '../routes/index.route';
-import config from './config';
-import APIResponse from '../utils/APIResponse';
 import APIError from '../utils/APIError';
+import APIResponse from '../utils/APIResponse';
+import config from './config';
+import winstonInstance from './winston';
 
 const app = express();
 
@@ -42,9 +42,9 @@ if (config.env === 'development') {
   expressWinston.responseWhitelist.push('body');
   app.use(expressWinston.logger({
     winstonInstance,
+    colorStatus: true, // Color the status code (default green, 3XX cyan, 4XX yellow, 5XX red).
     meta: true, // optional: log meta data about request (defaults to true)
     msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
-    colorStatus: true // Color the status code (default green, 3XX cyan, 4XX yellow, 5XX red).
   }));
 }
 
@@ -71,7 +71,7 @@ app.use((req, res, next) => next(APIResponse.apiNotFound()));
 // log error in winston transports except when executing test suite
 if (config.env !== 'test') {
   app.use(expressWinston.errorLogger({
-    winstonInstance
+    winstonInstance,
   }));
 }
 
@@ -81,8 +81,7 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
     code: err.code,
     key: err.key,
     message: err.isPublic ? err.message : httpStatus[err.status],
-    stack: config.env === 'development' ? err.stack : {}
-  })
-);
+    stack: config.env === 'development' ? err.stack : {},
+  }));
 
 export default app;
