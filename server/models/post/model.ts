@@ -1,6 +1,4 @@
-// import * as mongoose from "mongoose";
-import { mongoose } from "../../config/database";
-import { Schema, Document, Model } from "mongoose";
+import { Schema, Document, Model, model } from "mongoose";
 
 export interface IPost extends Document {
     title: string;
@@ -36,4 +34,4 @@ schema.static("findAllByAuthor", (author: string) => {
 
 export type PostModel = Model<IPost> & IPostModel;
 
-export const Post: PostModel = <PostModel>mongoose.model<IPost>("Post", schema);
+export const Post: PostModel = <PostModel>model<IPost>("Post", schema);

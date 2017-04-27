@@ -1,5 +1,4 @@
-import { mongoose } from "../../config/database";
-import { Schema, Model, Document } from "mongoose";
+import { Schema, Model, Document, model } from "mongoose";
 
 export interface IAuthor extends Document {
     age: number;
@@ -58,4 +57,4 @@ schema.static("updateByAge", (ageLimit: number, text: string) => {
 
 export type AuthorModel = Model<IAuthor> & IAuthorModel & IAuthor;
 
-export const Author: AuthorModel = <AuthorModel>mongoose.model<IAuthor>("Author", schema);
+export const Author: AuthorModel = <AuthorModel>model<IAuthor>("Author", schema);

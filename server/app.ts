@@ -1,37 +1,36 @@
 import * as express from "express";
+import mongoose = require("mongoose");
+import mockgoose = require("mockgoose");
 import { json, urlencoded } from "body-parser";
 import * as http from "http";
 
 process.env.NODE_ENV = "testing";
 
-import { PostRouter } from "./routes/post/post";
-import { AuthorRouter } from "./routes/author/author";
-import { APIDocsRouter } from "./routes/swagger";
+// config should be imported before importing any other file
+import config from "./config/config";
+import app from './config/express';
 
-const app: express.Application = express();
+// make bluebird default Promise
+Promise = require('bluebird'); // eslint-disable-line no-global-assign
 
-app.use(json());
-app.use(urlencoded({
-    extended: true
-}));
+// plugin bluebird promise in mongoose
+mongoose.Promise = Promise;
 
-app.get("/", (request: express.Request, response: express.Response) => {
-    response.json({
-        name: "Express application"
-    })
+// connect to mongo db
+const mongoUri = config.mongo.host;
+mongoose.connect(mongoUri, { server: { socketOptions: { keepAlive: 1 } } });
+mongoose.connection.on('error', () => {
+  throw new Error(`unable to connect to database: ${mongoUri}`);
 });
 
-app.use((err: Error & { status: number }, request: express.Request, response: express.Response, next: express.NextFunction): void => {
-
-    response.status(err.status || 500);
-    response.json({
-        error: "Server error"
-    })
-});
-
-app.use("/api", PostRouter.routes());
-app.use("/api", new AuthorRouter().getRouter());
-app.use("/api/docs", new APIDocsRouter().getRouter());
+// module.parent check is required to support mocha watch
+// src: https://github.com/mochajs/mocha/issues/1912
+if (!module.parent) {
+  // listen on port config.port
+  app.listen(process.env.PORT || config.port, () => {
+    console.info(`server started on port ${process.env.PORT || config.port} (${config.env})`); // eslint-disable-line no-console
+  });
+}
 
 const server: http.Server = app.listen(3003);
 
