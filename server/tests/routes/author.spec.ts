@@ -3,7 +3,7 @@ process.env.NODE_ENV = "testing";
 import * as chai from "chai";
 import chaiHttp = require("chai-http");
 
-import { server } from "../../app";
+import { app } from "../../app";
 
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe("Api Author", function(): void {
 
     it("should be able to create user", (done:Function): void => {
-        chai.request(server)
+        chai.request(app)
             .post("/api/author")
             .set("content-type", "application/json")
             .send({
@@ -26,7 +26,7 @@ describe("Api Author", function(): void {
     });
 
     it("should be able to get users", (done:Function): void => {
-        chai.request(server)
+        chai.request(app)
             .get("/api/author")
             .end((err:Error, res: any): void => {
                 expect(res.statusCode).to.be.equal(200);

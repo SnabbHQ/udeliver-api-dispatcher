@@ -1,10 +1,5 @@
-import * as express from "express";
 import mongoose = require("mongoose");
 import mockgoose = require("mockgoose");
-import { json, urlencoded } from "body-parser";
-import * as http from "http";
-
-process.env.NODE_ENV = "testing";
 
 // config should be imported before importing any other file
 import config from "./config/config";
@@ -32,6 +27,4 @@ if (!module.parent) {
   });
 }
 
-const server: http.Server = app.listen(3003);
-
-export { server };
+export { app };
