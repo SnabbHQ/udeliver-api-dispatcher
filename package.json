@@ -1,40 +1,59 @@
 {
-  "name": "typescript-mongoose",
+  "name": "udeliver-dispatcher-backend",
   "version": "0.0.1",
-  "license": "MIT",
-  "author": "Vlado Tešanović",
+  "author": "Javier Tarazaga",
   "repository": {
     "url": "https://github.com/vladotesanovic/typescript-mongoose-express.git",
     "type": "git"
   },
   "scripts": {
-    "lint": "yarn run tslint \"server/**/*.ts\"",
-    "start": "concurrently \"npm run tsc:w\" \"nodemon dist/app.js\"",
+    "lint": "tslint \"server/**/*.ts\"",
+    "postinstall": "tsc && yarn test:coverage",
+    "precommit": "yarn lint && yarn test",
+    "start": "concurrently \"yarn tsc:w\" \"nodemon out/dist/app.js\"",
+    "pretest": "rm -rf out/built && tsc -p tsconfig.test.json",
+    "test": "cross-env NODE_ENV=test mocha out/built --recursive --color --growl",
+    "test:watch": "yarn test -- --watch",
+    "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors out/built --recursive",
+    "test:check-coverage": "yarn test:coverage && istanbul check-coverage",
     "tsc:w": "tsc -w",
-    "test": "tsc & mocha server/tests/ --recursive --color --growl",
-    "test:coverage": "rm -rf coverage/* && tsc && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- server/tests/ --recursive --color --growl",
-    "postinstall": "tsc && npm run test:coverage"
+    "report-coverage": "coveralls < ./coverage/lcov.info"
   },
   "engines": {
     "node": ">= 5.4.1"
   },
+  "keywords": [
+    "express",
+    "node",
+    "node.js",
+    "mongodb",
+    "mongoose",
+    "mocha",
+    "istanbul",
+    "REST",
+    "API",
+    "boilerplate",
+    "typescript"
+  ],
   "dependencies": {
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
+    "cross-env": "4.0.0",
+    "debug": "2.6.4",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-validation": "^1.0.2",
     "express-winston": "^2.4.0",
     "helmet": "^3.5.0",
     "http-status": "^1.0.1",
+    "husky": "0.13.3",
     "joi": "^10.4.1",
     "method-override": "^2.3.8",
     "mockgoose": "^6.0.8",
     "mongoose": "^4.6.1",
     "morgan": "^1.8.1",
-    "tslint-eslint-rules": "4.0.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
@@ -44,21 +63,38 @@
     "@types/compression": "^0.0.33",
     "@types/cookie-parser": "^1.3.30",
     "@types/express": "^4.0.33",
+    "@types/http-status": "0.2.29",
     "@types/joi": "^10.3.0",
     "@types/method-override": "^0.0.29",
     "@types/mocha": "^2.2.32",
     "@types/mongoose": "^4.5.34",
     "@types/node": "^7.0.14",
+    "@types/supertest": "2.0.0",
     "@types/swagger-jsdoc": "0.0.1",
     "@types/winston": "^2.3.1",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "concurrently": "^3.1.0",
+    "coveralls": "2.13.1",
+    "cz-conventional-changelog": "2.0.0",
+    "del": "2.2.2",
+    "gulp": "3.9.1",
+    "gulp-load-plugins": "1.5.0",
+    "gulp-newer": "1.3.0",
+    "gulp-typescript": "3.1.6",
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
     "nodemon": "^1.10.0",
+    "run-sequence": "1.2.2",
     "supertest": "^3.0.0",
+    "ts-node": "3.0.2",
     "tslint": "5.1.0",
+    "tslint-eslint-rules": "4.0.0",
     "typescript": "^2.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

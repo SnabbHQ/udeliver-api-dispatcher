@@ -87,6 +87,19 @@ class APIResponse {
   }
 
   /**
+   * 409 Group
+   */
+  public static teamAlreadyExists() {
+    return new APIError(
+        409001,
+        'TEAM_ALREADY_EXISTS',
+        'The a team with the given name already exists',
+        httpStatus.CONFLICT,
+        true,
+    );
+  }
+
+  /**
    * 422 Group
    */
   public static invalidRequest(errorMessage = 'Invalid Request') {

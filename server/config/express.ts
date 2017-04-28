@@ -8,9 +8,9 @@ import * as expressWinston from 'express-winston';
 import * as helmet from 'helmet';
 import * as httpStatus from 'http-status';
 import * as methodOverride from 'method-override';
-import * as logger from 'morgan';
+import * as httpLogger from 'morgan';
 
-import routes from '../routes/index.route';
+import routes from '../routes';
 import APIError from '../utils/APIError';
 import APIResponse from '../utils/APIResponse';
 import config from './config';
@@ -19,7 +19,7 @@ import winstonInstance from './winston';
 const app = express();
 
 if (config.env === 'development') {
-  app.use(logger('dev'));
+  app.use(httpLogger('dev'));
 }
 
 // parse body params and attache them to req.body

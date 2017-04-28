@@ -1,6 +1,5 @@
 import * as express from 'express';
-import teamRoutes from '../team/team.route';
-import postRoutes from './post/post';
+import teamRoutes from './team/team.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -8,9 +7,6 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.get('/health-check', (req, res) =>
   res.send('OK'),
 );
-
-// mount posts routes at /posts
-router.use('/posts', postRoutes);
 
 // mount teams routes at /teams
 router.use('/teams', teamRoutes);

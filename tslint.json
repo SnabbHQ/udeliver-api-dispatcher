@@ -3,9 +3,8 @@
     "tslint:recommended",
     "tslint-eslint-rules"
   ],
-	"rules": {
+  "rules": {
     // "no-unused-vars": true, Still deprecated but will change soon https://github.com/palantir/tslint/issues/1481
-    "no-unused-expression": true,
     "arrow-parens": [
       true,
       "ban-single-arg-parens"
@@ -22,8 +21,8 @@
         "FunctionExpression": {
           "parameters": 1,
           "body": 1
+        }
       }
+    ]
   }
-]
-	}
 }
