@@ -21,6 +21,10 @@ export interface IOrganizationModel {
  * Organization Schema
  */
 const schema = new Schema({
+  createdAt: {
+    default: Date.now,
+    type: Date,
+  },
   email: {
     required: false,
     type: String,
