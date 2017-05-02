@@ -13,7 +13,7 @@ class APIResponse {
   /**
    * 401 Group
    */
-  public static unAuthorized() {
+  public static unAuthorized(): APIError {
     return new APIError(
       422000,
       'UNAUTHORIZED',
@@ -26,7 +26,7 @@ class APIResponse {
   /**
    * 404 Group
    */
-  public static apiNotFound() {
+  public static apiNotFound(): APIError {
     return new APIError(
       404000,
       'API_NOT_FOUND',
@@ -36,7 +36,7 @@ class APIResponse {
     );
   }
 
-  public static agentNotFound() {
+  public static agentNotFound(): APIError {
     return new APIError(
         404001,
         'AGENT_NOT_FOUND',
@@ -46,7 +46,7 @@ class APIResponse {
     );
   }
 
-  public static organizationNotFound() {
+  public static organizationNotFound(): APIError {
     return new APIError(
         404002,
         'ORGANIZATION_NOT_FOUND',
@@ -56,7 +56,7 @@ class APIResponse {
     );
   }
 
-  public static taskNotFound() {
+  public static taskNotFound(): APIError {
     return new APIError(
         404003,
         'TASK_NOT_FOUND',
@@ -66,7 +66,7 @@ class APIResponse {
     );
   }
 
-  public static teamNotFound() {
+  public static teamNotFound(): APIError {
     return new APIError(
         404004,
         'TEAM_NOT_FOUND',
@@ -76,7 +76,7 @@ class APIResponse {
     );
   }
 
-  public static userNotFound() {
+  public static userNotFound(): APIError {
     return new APIError(
         404005,
         'USER_NOT_FOUND',
@@ -89,9 +89,19 @@ class APIResponse {
   /**
    * 409 Group
    */
-  public static teamAlreadyExists() {
+  public static organizationAlreadyExists(): APIError {
     return new APIError(
         409001,
+        'ORGANIZATION_ALREADY_EXISTS',
+        'The a organization with the given name already exists',
+        httpStatus.CONFLICT,
+        true,
+    );
+  }
+
+  public static teamAlreadyExists(): APIError {
+    return new APIError(
+        409002,
         'TEAM_ALREADY_EXISTS',
         'The a team with the given name already exists',
         httpStatus.CONFLICT,
@@ -102,7 +112,7 @@ class APIResponse {
   /**
    * 422 Group
    */
-  public static invalidRequest(errorMessage = 'Invalid Request') {
+  public static invalidRequest(errorMessage = 'Invalid Request'): APIError {
     return new APIError(
       422000,
       'INVALID_REQUEST',

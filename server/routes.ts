@@ -1,4 +1,5 @@
 import * as express from 'express';
+import organizationRoutes from './organization/organization.route';
 import teamRoutes from './team/team.route';
 import websocket from './websocket/websocket.router';
 
@@ -13,7 +14,7 @@ router.get('/health-check', (req, res) =>
 // router.use('/auth', authRoutes);
 
 // mount organizations routes at /organizations
-// router.use('/organizations', organizationRoutes);
+router.use('/organizations', organizationRoutes);
 
 // mount tasks routes at /tasks
 // router.use('/tasks', taskRoutes);

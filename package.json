@@ -9,10 +9,10 @@
   "scripts": {
     "lint": "tslint \"server/**/*.ts\"",
     "postinstall": "tsc && yarn test:coverage",
-    "precommit": "yarn lint && yarn test",
+    "precommit": "yarn test",
     "start": "concurrently \"yarn tsc:w\" \"nodemon out/dist/app.js\"",
     "pretest": "rm -rf out/built && tsc -p tsconfig.test.json",
-    "test": "cross-env NODE_ENV=test mocha out/built --recursive --color --growl",
+    "test": "cross-env NODE_ENV=test mocha out/built --recursive --color --growl --timeout 120000",
     "test:watch": "yarn test -- --watch",
     "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors out/built --recursive",
     "test:check-coverage": "yarn test:coverage && istanbul check-coverage",
@@ -51,7 +51,7 @@
     "husky": "0.13.3",
     "joi": "^10.4.1",
     "method-override": "^2.3.8",
-    "mockgoose": "^6.0.8",
+    "mockgoose": "7.3.1",
     "mongoose": "^4.6.1",
     "morgan": "^1.8.1",
     "pusher": "1.5.1",
@@ -91,7 +91,7 @@
     "ts-node": "3.0.2",
     "tslint": "5.1.0",
     "tslint-eslint-rules": "4.0.0",
-    "typescript": "^2.1.1"
+    "typescript": "2.3.2"
   },
   "config": {
     "commitizen": {

@@ -1,6 +1,6 @@
 import mongoose = require('mongoose');
-import mockgoose = require('mockgoose');
 import * as debug from 'debug';
+import { Mockgoose } from 'mockgoose';
 import * as util from 'util';
 
 // config should be imported before importing any other file
@@ -17,9 +17,12 @@ mongoose.Promise = Promise;
 // connect to mongo db
 const mongoUri = config.mongo.host;
 
+// Initialize mockgoose
+const mockgoose: Mockgoose = new Mockgoose(mongoose);
+
 // make sure that if we running test, we isolate the DB to not pollute our own DB with test stuff
 if (config.env === 'test') {
-  mockgoose(mongoose).then((): void => { mongoose.connect('mongodb://udeliver.com/TestingDB'); });
+  mockgoose.prepareStorage().then((): void => { mongoose.connect('mongodb://udeliver.com/TestingDB'); });
 } else {
   mongoose.connect(mongoUri, { server: { socketOptions: { keepAlive: 1 } } });
 }
