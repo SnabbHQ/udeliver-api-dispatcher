@@ -1,6 +1,7 @@
 import * as express from 'express';
 import organizationRoutes from './organization/organization.route';
 import teamRoutes from './team/team.route';
+import userRoutes from './user/user.route';
 import websocket from './websocket/websocket.router';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -21,6 +22,9 @@ router.use('/organizations', organizationRoutes);
 
 // mount teams routes at /teams
 router.use('/teams', teamRoutes);
+
+// mount users routes at /users
+router.use('/users', userRoutes);
 
 // mount websockets routes at /websocket
 router.use('/websockets', websocket);

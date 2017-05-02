@@ -93,7 +93,7 @@ class APIResponse {
     return new APIError(
         409001,
         'ORGANIZATION_ALREADY_EXISTS',
-        'The a organization with the given name already exists',
+        'An organization with the given name already exists',
         httpStatus.CONFLICT,
         true,
     );
@@ -103,7 +103,17 @@ class APIResponse {
     return new APIError(
         409002,
         'TEAM_ALREADY_EXISTS',
-        'The a team with the given name already exists',
+        'A team with the given name already exists',
+        httpStatus.CONFLICT,
+        true,
+    );
+  }
+
+  public static userAlreadyExists(): APIError {
+    return new APIError(
+        409003,
+        'USER_ALREADY_EXISTS',
+        'A user with the given email already exists',
         httpStatus.CONFLICT,
         true,
     );
