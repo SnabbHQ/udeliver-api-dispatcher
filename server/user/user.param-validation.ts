@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import Regex from '../utils/Regex';
 
 export default {
   // POST /api/users
@@ -7,7 +8,7 @@ export default {
       email: Joi.string().email().required(),
       firstName: Joi.string().optional(),
       lastName: Joi.string().optional(),
-      mobileNumber: Joi.string().regex(/^(\+?)(?:[0-9] ?){6,14}[0-9]$/).required(),
+      mobileNumber: Joi.string().regex(Regex.MobilePhoneRegex).required(),
     },
   },
 
@@ -17,7 +18,7 @@ export default {
       email: Joi.string().email().required(),
       firstName: Joi.string().optional(),
       lastName: Joi.string().optional(),
-      mobileNumber: Joi.string().regex(/^(\+?)(?:[0-9] ?){6,14}[0-9]$/).required(),
+      mobileNumber: Joi.string().regex(Regex.MobilePhoneRegex).required(),
     },
     params: {
       userId: Joi.string().hex().required(),

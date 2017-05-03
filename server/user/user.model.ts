@@ -1,5 +1,6 @@
 import { Document, Model, model, Schema } from 'mongoose';
 import APIResponse from '../utils/APIResponse';
+import Regex from '../utils/Regex';
 
 export interface IUser extends Document {
   createdAt: Date;
@@ -41,7 +42,7 @@ const schema = new Schema({
     type: String,
   },
   mobileNumber: {
-    match: [/^(\+?)(?:[0-9] ?){6,14}[0-9]$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.'],
+    match: [ Regex.MobilePhoneRegex, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.'],
     required: true,
     type: String,
   },

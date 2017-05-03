@@ -1,6 +1,29 @@
 import { ObjectId } from '@types/bson';
 import { Document, Model, model, Schema } from 'mongoose';
 import APIResponse from '../utils/APIResponse';
+import Regex from '../utils/Regex';
+
+export type TransportType =
+  'bicycle'
+| 'car'
+| 'foot'
+| 'motorcycle'
+| 'scooter'
+| 'truck';
+
+export const TransportType = {
+  Bicycle: 'bicycle' as TransportType,
+  Car: 'car' as TransportType,
+  Foot: 'foot' as TransportType,
+  Motorcycle: 'motorycycle' as TransportType,
+  Scooter: 'scooter' as TransportType,
+  Truck: 'truck' as TransportType,
+};
+
+interface ILocation {
+  latitude: number;
+  longitude: number;
+}
 
 export interface IWorker extends Document {
   createdAt: Date;
@@ -8,6 +31,11 @@ export interface IWorker extends Document {
   firstName: string;
   lastName: string;
   mobileNumber: string;
+  transportType: string;
+  transportDesc: string;
+  licensePlate: string;
+  location: ILocation;
+  color: string;
 }
 
 export interface IList {
@@ -25,6 +53,10 @@ export interface IWorkerModel {
  * Worker Schema
  */
 const schema = new Schema({
+  color: {
+    required: false,
+    type: String,
+  },
   createdAt: {
     default: Date.now,
     type: Date,
@@ -42,8 +74,38 @@ const schema = new Schema({
     required: false,
     type: String,
   },
+  licensePlate: {
+    required: false,
+    type: String,
+  },
+  location: {
+    latitude: {
+      required: false,
+      type: Number,
+    },
+    longitude: {
+      required: false,
+      type: Number,
+    },
+  },
   mobileNumber: {
-    match: [/^(\+?)(?:[0-9] ?){6,14}[0-9]$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.'],
+    match: [ Regex.MobilePhoneRegex, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.'],
+    required: true,
+    type: String,
+  },
+  transportDesc: {
+    required: false,
+    type: String,
+  },
+  transportType: {
+    enum: [
+      TransportType.Bicycle,
+      TransportType.Car,
+      TransportType.Foot,
+      TransportType.Motorcycle,
+      TransportType.Scooter,
+      TransportType.Truck,
+    ],
     required: true,
     type: String,
   },

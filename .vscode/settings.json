@@ -4,6 +4,8 @@
         "**/.git": true,
         "**/node_modules": true,
         "**/bower_components": true,
-        "**/dist": true
-    }
+        "**/out": true,
+        "**/coverage": true
+    },
+    "eslint.enable": false
 }

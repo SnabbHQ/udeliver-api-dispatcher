@@ -21,11 +21,20 @@ after(done => {
 describe('## Worker APIs', () => {
   let worker = {
     _id: '',
+    color: 'white',
     email: 'k@snabb.io',
     firstName: 'Mr',
     lastName: 'Potato',
-    mobileNumber: '+34661518132'
+    licensePlate: '123',
+    mobileNumber: '+34661518132',
+    transportDesc: 'Toyoto Corolla 2011',
+    transportType: 'car',
+    location: {
+      latitude: 0.0,
+      longitude: 0.0,
+    }
   };
+
 
   describe('# Error Handling', () => {
     it('should handle mongoose CastError - Cast to ObjectId failed', (done) => {
@@ -39,7 +48,7 @@ describe('## Worker APIs', () => {
         .catch(done);
     });
 
-    it('should handle express validation error - email is required', (done) => {
+    it('should handle express validation error - "email" is required and "transportType" is required', (done) => {
       request(app)
         .post('/api/workers')
         .send({
@@ -47,7 +56,7 @@ describe('## Worker APIs', () => {
         })
         .expect(httpStatus.UNPROCESSABLE_ENTITY)
         .then((res) => {
-          expect(res.body.message).to.equal('"email" is required');
+          expect(res.body.message).to.equal('"email" is required and "transportType" is required');
           done();
         })
         .catch(done);
@@ -65,6 +74,11 @@ describe('## Worker APIs', () => {
           expect(res.body.firstName).to.equal(worker.firstName);
           expect(res.body.lastName).to.equal(worker.lastName);
           expect(res.body.mobileNumber).to.equal(worker.mobileNumber);
+          expect(res.body.transportType).to.equal(worker.transportType);
+          expect(res.body.transportDesc).to.equal(worker.transportDesc);
+          expect(res.body.licensePlate).to.equal(worker.licensePlate);
+          expect(res.body.location).to.deep.equal(worker.location);
+          expect(res.body.color).to.equal(worker.color);
           worker = res.body;
           done();
         })
@@ -96,6 +110,11 @@ describe('## Worker APIs', () => {
           expect(res.body.firstName).to.equal(worker.firstName);
           expect(res.body.lastName).to.equal(worker.lastName);
           expect(res.body.mobileNumber).to.equal(worker.mobileNumber);
+          expect(res.body.transportType).to.equal(worker.transportType);
+          expect(res.body.transportDesc).to.equal(worker.transportDesc);
+          expect(res.body.licensePlate).to.equal(worker.licensePlate);
+          expect(res.body.location).to.deep.equal(worker.location);
+          expect(res.body.color).to.equal(worker.color);
           done();
         })
         .catch(done);
@@ -127,13 +146,18 @@ describe('## Worker APIs', () => {
           expect(res.body.firstName).to.equal(worker.firstName);
           expect(res.body.lastName).to.equal(worker.lastName);
           expect(res.body.mobileNumber).to.equal(worker.mobileNumber);
+          expect(res.body.transportType).to.equal(worker.transportType);
+          expect(res.body.transportDesc).to.equal(worker.transportDesc);
+          expect(res.body.licensePlate).to.equal(worker.licensePlate);
+          expect(res.body.location).to.deep.equal(worker.location);
+          expect(res.body.color).to.equal(worker.color);
           done();
         })
         .catch(done);
     });
   });
 
-  describe('# GET /api/workers/', () => {
+  describe('# GET /api/workers', () => {
     it('should get all workers', (done) => {
       request(app)
         .get('/api/workers')
@@ -158,7 +182,7 @@ describe('## Worker APIs', () => {
     });
   });
 
-  describe('# DELETE /api/workers/', () => {
+  describe('# DELETE /api/workers/:workerId', () => {
     it('should delete worker', (done) => {
       request(app)
         .delete(`/api/workers/${worker._id}`)

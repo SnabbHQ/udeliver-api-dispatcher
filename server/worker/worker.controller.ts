@@ -28,18 +28,27 @@ function get(req, res) {
 
 /**
  * Create new worker
- * @property {string} req.body.email - The email of worker.
- * @property {string} req.body.firstName - The first name of worker.
- * @property {string} req.body.lastName - The last name of worker.
- * @property {string} req.body.mobileNumber - The mobileNumber of worker.
+ * @property {string} req.body.color - The color of the vehicle (if any) of the agent.
+ * @property {string} req.body.email - The email of agent.
+ * @property {string} req.body.firstName - The first name of agent.
+ * @property {string} req.body.lastName - The last name of agent.
+ * @property {string} req.body.licensePlate - The license plate of the agent (if any).
+ * @property {string} req.body.mobileNumber - The mobileNumber of agent.
+ * @property {string} req.body.transportDesc - The transport description (Year, model) of agent.
+ * @property {string} req.body.transportType - The transport type of agent.
  * @returns {Worker}
  */
 function create(req: IWorkerRequest, res: Response, next: NextFunction) {
   const worker = new Worker({
+    color: req.body.color,
     email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    licensePlate: req.body.licensePlate,
+    location: req.body.location,
     mobileNumber: req.body.mobileNumber,
+    transportDesc: req.body.transportDesc,
+    transportType: req.body.transportType,
   });
 
   worker.save()
@@ -59,18 +68,27 @@ function create(req: IWorkerRequest, res: Response, next: NextFunction) {
 
 /**
  * Update existing worker
- * @property {string} req.body.email - The email of worker.
- * @property {string} req.body.firstName - The first name of worker.
- * @property {string} req.body.lastName - The last name of worker.
- * @property {string} req.body.mobileNumber - The mobileNumber of worker.
+ * @property {string} req.body.color - The color of the vehicle (if any) of the agent.
+ * @property {string} req.body.email - The email of agent.
+ * @property {string} req.body.firstName - The first name of agent.
+ * @property {string} req.body.lastName - The last name of agent.
+ * @property {string} req.body.licensePlate - The license plate of the agent (if any).
+ * @property {string} req.body.mobileNumber - The mobileNumber of agent.
+ * @property {string} req.body.transportDesc - The transport description (Year, model) of agent.
+ * @property {string} req.body.transportType - The transport type of agent.
  * @returns {Worker}
  */
 function update(req: IWorkerRequest, res: Response, next: NextFunction) {
   const worker = req.worker;
+  worker.color = req.body.color;
   worker.email = req.body.email;
   worker.firstName = req.body.firstName;
   worker.lastName = req.body.lastName;
+  worker.licensePlate = req.body.licensePlate;
+  worker.location = req.body.location;
   worker.mobileNumber = req.body.mobileNumber;
+  worker.transportDesc = req.body.transportDesc;
+  worker.transportType = req.body.transportType;
 
   worker.save().then(savedWorker => res.json(savedWorker)).catch(e => next(e));
 }

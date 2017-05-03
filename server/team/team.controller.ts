@@ -17,6 +17,7 @@ class TeamController {
    */
   public static create(req: ITeamRequest, res: Response, next: NextFunction) {
     // TODO - Make sure to check that the id of the workers being added actually do exists
+    // TODO - Also make sure to update the worker's array of teams which belongs to.
 
     const team = new Team({
       description: req.body.description,
