@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import webSocket from '../config/websocket';
 import APIResponse from '../utils/APIResponse';
 import { IWorker, Worker } from './worker.model';
 
@@ -90,7 +91,10 @@ function update(req: IWorkerRequest, res: Response, next: NextFunction) {
   worker.transportDesc = req.body.transportDesc;
   worker.transportType = req.body.transportType;
 
-  worker.save().then(savedWorker => res.json(savedWorker)).catch(e => next(e));
+  worker.save()
+  .then(savedWorker => res.json(savedWorker))
+  .then(() => webSocket.trigger('worker_location_channel', 'location-update', { location: worker.location }))
+  .catch(e => next(e));
 }
 
 /**

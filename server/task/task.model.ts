@@ -10,6 +10,8 @@ export const TaskType = {
 export interface ITask extends Document {
   comments: string;
   createdAt: Date;
+  completeAfter: Date;
+  completeBefore: Date;
   type: TaskType;
 }
 
@@ -30,6 +32,12 @@ const schema = new Schema({
   comments: {
     required: false,
     type: String,
+  },
+  completeAfter: {
+    type: Date,
+  },
+  completeBefore: {
+    type: Date,
   },
   createdAt: {
     default: Date.now,

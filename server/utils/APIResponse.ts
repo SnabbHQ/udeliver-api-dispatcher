@@ -38,51 +38,61 @@ class APIResponse {
 
   public static workerNotFound(): APIError {
     return new APIError(
-        404001,
-        'WORKER_NOT_FOUND',
-        'No such worker exists',
-        httpStatus.NOT_FOUND,
-        true,
+      404001,
+      'WORKER_NOT_FOUND',
+      'No such worker exists',
+      httpStatus.NOT_FOUND,
+      true,
     );
   }
 
   public static organizationNotFound(): APIError {
     return new APIError(
-        404002,
-        'ORGANIZATION_NOT_FOUND',
-        'No such organization exists',
-        httpStatus.NOT_FOUND,
-        true,
+      404002,
+      'ORGANIZATION_NOT_FOUND',
+      'No such organization exists',
+      httpStatus.NOT_FOUND,
+      true,
     );
   }
 
   public static taskNotFound(): APIError {
     return new APIError(
-        404003,
-        'TASK_NOT_FOUND',
-        'No such task exists',
-        httpStatus.NOT_FOUND,
-        true,
+      404003,
+      'TASK_NOT_FOUND',
+      'No such task exists',
+      httpStatus.NOT_FOUND,
+      true,
     );
   }
 
   public static teamNotFound(): APIError {
     return new APIError(
-        404004,
-        'TEAM_NOT_FOUND',
-        'No such team exists',
-        httpStatus.NOT_FOUND,
-        true,
+      404004,
+      'TEAM_NOT_FOUND',
+      'No such team exists',
+      httpStatus.NOT_FOUND,
+      true,
     );
   }
 
   public static userNotFound(): APIError {
     return new APIError(
-        404005,
-        'USER_NOT_FOUND',
-        'No such user exists',
-        httpStatus.NOT_FOUND,
-        true,
+      404005,
+      'USER_NOT_FOUND',
+      'No such user exists',
+      httpStatus.NOT_FOUND,
+      true,
+    );
+  }
+
+  public static customerNotFound(): APIError {
+    return new APIError(
+      404006,
+      'CUSOMTER_NOT_FOUND',
+      'No such customer exists',
+      httpStatus.NOT_FOUND,
+      true,
     );
   }
 
@@ -91,41 +101,51 @@ class APIResponse {
    */
   public static organizationAlreadyExists(): APIError {
     return new APIError(
-        409001,
-        'ORGANIZATION_ALREADY_EXISTS',
-        'An organization with the given name already exists',
-        httpStatus.CONFLICT,
-        true,
+      409001,
+      'ORGANIZATION_ALREADY_EXISTS',
+      'An organization with the given name already exists',
+      httpStatus.CONFLICT,
+      true,
     );
   }
 
   public static teamAlreadyExists(): APIError {
     return new APIError(
-        409002,
-        'TEAM_ALREADY_EXISTS',
-        'A team with the given name already exists',
-        httpStatus.CONFLICT,
-        true,
+      409002,
+      'TEAM_ALREADY_EXISTS',
+      'A team with the given name already exists',
+      httpStatus.CONFLICT,
+      true,
     );
   }
 
   public static userAlreadyExists(): APIError {
     return new APIError(
-        409003,
-        'USER_ALREADY_EXISTS',
-        'A user with the given email already exists',
-        httpStatus.CONFLICT,
-        true,
+      409003,
+      'USER_ALREADY_EXISTS',
+      'A user with the given email already exists',
+      httpStatus.CONFLICT,
+      true,
     );
   }
 
   public static workerAlreadyExists(): APIError {
     return new APIError(
-        409004,
-        'WORKER_ALREADY_EXISTS',
-        'A worker with the given email already exists',
-        httpStatus.CONFLICT,
-        true,
+      409004,
+      'WORKER_ALREADY_EXISTS',
+      'A worker with the given email already exists',
+      httpStatus.CONFLICT,
+      true,
+    );
+  }
+
+  public static customerAlreadyExists(): APIError {
+    return new APIError(
+      409005,
+      'CUSTOMER_ALREADY_EXISTS',
+      'A customer with the given email already exists',
+      httpStatus.CONFLICT,
+      true,
     );
   }
 
