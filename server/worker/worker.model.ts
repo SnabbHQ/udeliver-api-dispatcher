@@ -1,3 +1,4 @@
+import { ObjectId } from '@types/bson';
 import { Document, Model, model, Schema } from 'mongoose';
 import APIResponse from '../utils/APIResponse';
 
@@ -10,11 +11,12 @@ export interface IWorker extends Document {
 }
 
 export interface IList {
-  limit: number;
-  skip: number;
+  limit?: number;
+  skip?: number;
 }
 
 export interface IWorkerModel {
+  findAll(ids: string[]): Promise<IWorker[]>;
   get(id: string): Promise<IWorker>;
   list(param: IList): Promise<IWorker[]>;
 }

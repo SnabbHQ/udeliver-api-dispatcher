@@ -5,6 +5,7 @@ export interface ITeam extends Document {
   name: string;
   description: string;
   createdAt: Date;
+  workers: string[];
 }
 
 export interface IList {
@@ -33,6 +34,10 @@ const schema = new Schema({
     index: { unique: true },
     required: true,
     type: String,
+  },
+  workers: {
+    required: false,
+    type: [String],
   },
 });
 
