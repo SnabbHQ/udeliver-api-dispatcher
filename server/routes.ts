@@ -2,7 +2,8 @@ import * as express from 'express';
 import organizationRoutes from './organization/organization.route';
 import teamRoutes from './team/team.route';
 import userRoutes from './user/user.route';
-import websocket from './websocket/websocket.router';
+import websocketRoutes from './websocket/websocket.route';
+import workerRoutes from './worker/worker.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -26,10 +27,10 @@ router.use('/teams', teamRoutes);
 // mount users routes at /users
 router.use('/users', userRoutes);
 
-// mount websockets routes at /websocket
-router.use('/websockets', websocket);
+// mount websockets routes at /websockets
+router.use('/websockets', websocketRoutes);
 
-// mount user routes at /users
-// router.use('/users', userRoutes);
+// mount workers routes at /workers
+router.use('/workers', workerRoutes);
 
 export default router;

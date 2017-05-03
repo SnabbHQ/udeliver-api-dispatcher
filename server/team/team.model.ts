@@ -29,7 +29,6 @@ const schema = new Schema({
     required: false,
     type: String,
   },
-  members: [{ type: Schema.Types.ObjectId, ref: 'Member'}],
   name: {
     index: { unique: true },
     required: true,

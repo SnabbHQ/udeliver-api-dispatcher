@@ -36,11 +36,11 @@ class APIResponse {
     );
   }
 
-  public static agentNotFound(): APIError {
+  public static workerNotFound(): APIError {
     return new APIError(
         404001,
-        'AGENT_NOT_FOUND',
-        'No such agent exists',
+        'WORKER_NOT_FOUND',
+        'No such worker exists',
         httpStatus.NOT_FOUND,
         true,
     );
@@ -114,6 +114,16 @@ class APIResponse {
         409003,
         'USER_ALREADY_EXISTS',
         'A user with the given email already exists',
+        httpStatus.CONFLICT,
+        true,
+    );
+  }
+
+  public static workerAlreadyExists(): APIError {
+    return new APIError(
+        409004,
+        'WORKER_ALREADY_EXISTS',
+        'A worker with the given email already exists',
         httpStatus.CONFLICT,
         true,
     );
