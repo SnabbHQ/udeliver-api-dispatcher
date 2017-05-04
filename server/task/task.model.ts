@@ -1,4 +1,5 @@
 import { Document, Model, model, Schema } from 'mongoose';
+import { Address, IAddress } from '../address/address.model';
 import APIResponse from '../utils/APIResponse';
 
 export type TaskType = 'pickup' | 'dropoff';
@@ -8,6 +9,7 @@ export const TaskType = {
 };
 
 export interface ITask extends Document {
+  address: IAddress;
   comments: string;
   createdAt: Date;
   completeAfter: Date;
@@ -29,6 +31,10 @@ export interface ITaskModel {
  * Task Schema
  */
 const schema = new Schema({
+  address: {
+    required: true,
+    type: Address,
+  },
   comments: {
     required: false,
     type: String,

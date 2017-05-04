@@ -1,5 +1,4 @@
 import * as express from 'express';
-import addressRoutes from './address/address.route';
 import contactRoutes from './contact/contact.route';
 import organizationRoutes from './organization/organization.route';
 import taskRoutes from './task/task.route';
@@ -17,9 +16,6 @@ router.get('/health-check', (req, res) =>
 
 // mount auth routes at /auth
 // router.use('/auth', authRoutes);
-
-// mount addresses routes at /addresses
-router.use('/addresses', addressRoutes);
 
 // mount contacts routes at /contacts
 router.use('/contacts', contactRoutes);

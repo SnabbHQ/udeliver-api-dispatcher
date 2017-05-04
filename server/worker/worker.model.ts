@@ -1,5 +1,6 @@
 import { ObjectId } from '@types/bson';
 import { Document, Model, model, Schema } from 'mongoose';
+import { ILocation, Location } from '../location/location.model';
 import APIResponse from '../utils/APIResponse';
 import Regex from '../utils/Regex';
 
@@ -20,11 +21,6 @@ export const TransportType = {
   Truck: 'truck' as TransportType,
 };
 
-interface ILocation {
-  latitude: number;
-  longitude: number;
-}
-
 export interface IWorker extends Document {
   createdAt: Date;
   email: string;
@@ -34,7 +30,7 @@ export interface IWorker extends Document {
   transportType: string;
   transportDesc: string;
   licensePlate: string;
-  location: ILocation;
+  location?: ILocation;
   color: string;
 }
 
@@ -79,14 +75,8 @@ const schema = new Schema({
     type: String,
   },
   location: {
-    latitude: {
-      required: false,
-      type: Number,
-    },
-    longitude: {
-      required: false,
-      type: Number,
-    },
+    required: false,
+    type: Location,
   },
   mobileNumber: {
     match: [ Regex.MobilePhoneRegex, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.'],

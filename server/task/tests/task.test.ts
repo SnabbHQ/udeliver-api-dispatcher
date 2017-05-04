@@ -21,6 +21,14 @@ after(done => {
 describe('## Task APIs', () => {
   let task = {
     _id: '',
+    address: {
+      street: "64 Seabring St",
+      city: "Brooklyn",
+      state: "NY",
+      number: "16",
+      postalCode: "11231",
+      countryCode: "US",
+    },
     comments: 'This is a comment',
     type: 'pickup',
   };
@@ -34,7 +42,7 @@ describe('## Task APIs', () => {
         })
         .expect(httpStatus.UNPROCESSABLE_ENTITY)
         .then((res) => {
-          expect(res.body.message).to.equal('\"type\" must be one of [pickup, dropoff]');
+          expect(res.body.message).to.equal('\"address" is required and "type" must be one of [pickup, dropoff]');
           done();
         })
         .catch(done);

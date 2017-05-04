@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import { LocationValidation } from '../location/location.param-validation';
 import Regex from '../utils/Regex';
 import { TransportType } from './worker.model';
 
@@ -11,10 +12,7 @@ export default {
       firstName: Joi.string().optional(),
       lastName: Joi.string().optional(),
       licensePlate: Joi.string().optional(),
-      location: Joi.object({
-        latitude: Joi.number().optional(),
-        longitude: Joi.number().optional(),
-      }),
+      location: Joi.object().keys(LocationValidation).optional(),
       mobileNumber: Joi.string().regex(Regex.MobilePhoneRegex).required(),
       transportDesc: Joi.string().optional(),
       transportType: Joi.string().required().valid(
@@ -36,10 +34,7 @@ export default {
       firstName: Joi.string().optional(),
       lastName: Joi.string().optional(),
       licensePlate: Joi.string().optional(),
-      location: Joi.object({
-        latitude: Joi.number().optional(),
-        longitude: Joi.number().optional(),
-      }),
+      location: Joi.object().keys(LocationValidation).optional(),
       mobileNumber: Joi.string().regex(Regex.MobilePhoneRegex).required(),
       transportDesc: Joi.string().optional(),
       transportType: Joi.string().required().valid(

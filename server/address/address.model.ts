@@ -3,36 +3,21 @@ import APIResponse from '../utils/APIResponse';
 import Regex from '../utils/Regex';
 
 export interface IAddress extends Document {
-  address: string;
-  address2?: string;
+  apartmentNumber?: string;
   city: string;
-  country: string;
+  countryCode: string;
   createdAt: Date;
-  latitude?: number;
-  longitude?: number;
+  number: string;
   postalCode: string;
   state?: string;
-}
-
-export interface IList {
-  limit: number;
-  skip: number;
-}
-
-export interface IAddressModel {
-  get(id: string): Promise<IAddress>;
-  list(param: IList): Promise<IAddress[]>;
+  street: string;
 }
 
 /**
- * Address Schema
+ * Address
  */
-const schema = new Schema({
-  address: {
-    required: true,
-    type: String,
-  },
-  address2: {
+export const Address = {
+  apartmentNumber: {
     required: false,
     type: String,
   },
@@ -40,7 +25,7 @@ const schema = new Schema({
     required: true,
     type: String,
   },
-  country: {
+  countryCode: {
     required: true,
     type: String,
   },
@@ -48,13 +33,9 @@ const schema = new Schema({
     default: Date.now,
     type: Date,
   },
-  latitude: {
-    required: false,
-    type: Number,
-  },
-  longitude: {
-    required: false,
-    type: Number,
+  number: {
+    required: true,
+    type: String,
   },
   postalCode: {
     required: true,
@@ -64,44 +45,8 @@ const schema = new Schema({
     required: false,
     type: String,
   },
-});
-
-/**
- * Add your
- * - pre-save hooks
- * - validations
- * - virtuals
- */
-
-/**
- * Statics
- */
-schema.statics = {
-
-  get(id) {
-    return this.findById(id).exec().then(address => {
-      if (address) {
-        return address;
-      }
-      const err = APIResponse.addressNotFound();
-      return Promise.reject(err);
-    });
-  },
-
-  /**
-   * List addresss in descending order of 'createdAt' timestamp.
-   * @param {number} skip - Number of addresss to be skipped.
-   * @param {number} limit - Limit number of addresss to be returned.
-   * @returns {Promise<Address[]>}
-   */
-  list({
-    skip = 0,
-    limit = 50,
-  } = {}) {
-    return this.find().sort({ createdAt: -1 }).skip(+skip).limit(+limit)
-    .exec();
+  street: {
+    required: true,
+    type: String,
   },
 };
-
-export type AddressModel = Model<IAddress> & IAddressModel;
-export const Address: AddressModel = model<IAddress>('Address', schema) as AddressModel;

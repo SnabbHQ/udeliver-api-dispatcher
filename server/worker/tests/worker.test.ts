@@ -2,7 +2,9 @@ import * as chai from 'chai';
 import * as httpStatus from 'http-status';
 import * as mongoose from 'mongoose';
 import * as request from 'supertest';
-import { app } from '../../app';
+import {
+  app
+} from '../../app';
 
 const expect = chai.expect;
 chai.config.includeStack = true;
@@ -85,7 +87,7 @@ describe('## Worker APIs', () => {
         .catch(done);
     });
 
-     it('should report a duplicate worker error ', done => {
+    it('should report a duplicate worker error ', done => {
       request(app)
         .post('/api/workers')
         .send(worker)
@@ -172,7 +174,10 @@ describe('## Worker APIs', () => {
     it('should get all workers (with limit and skip)', (done) => {
       request(app)
         .get('/api/workers')
-        .query({ limit: 10, skip: 1 })
+        .query({
+          limit: 10,
+          skip: 1
+        })
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('array');
@@ -195,3 +200,4 @@ describe('## Worker APIs', () => {
     });
   });
 });
+

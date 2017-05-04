@@ -35,6 +35,7 @@ function get(req, res) {
  */
 function create(req: ITaskRequest, res: Response, next: NextFunction) {
   const task = new Task({
+    address: req.body.address,
     comments: req.body.comments,
     type: req.body.type,
   });
@@ -53,6 +54,7 @@ function create(req: ITaskRequest, res: Response, next: NextFunction) {
  */
 function update(req: ITaskRequest, res: Response, next: NextFunction) {
   const task = req.task;
+  task.address = req.body.address;
   task.comments = req.body.comments;
   task.type = req.body.type;
 
