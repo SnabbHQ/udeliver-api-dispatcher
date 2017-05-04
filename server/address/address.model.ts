@@ -2,7 +2,7 @@ import { Document, Model, model, Schema } from 'mongoose';
 import APIResponse from '../utils/APIResponse';
 import Regex from '../utils/Regex';
 
-export interface ILocation extends Document {
+export interface IAddress extends Document {
   address: string;
   address2?: string;
   city: string;
@@ -19,13 +19,13 @@ export interface IList {
   skip: number;
 }
 
-export interface ILocationModel {
-  get(id: string): Promise<ILocation>;
-  list(param: IList): Promise<ILocation[]>;
+export interface IAddressModel {
+  get(id: string): Promise<IAddress>;
+  list(param: IList): Promise<IAddress[]>;
 }
 
 /**
- * Location Schema
+ * Address Schema
  */
 const schema = new Schema({
   address: {
@@ -79,20 +79,20 @@ const schema = new Schema({
 schema.statics = {
 
   get(id) {
-    return this.findById(id).exec().then(location => {
-      if (location) {
-        return location;
+    return this.findById(id).exec().then(address => {
+      if (address) {
+        return address;
       }
-      const err = APIResponse.locationNotFound();
+      const err = APIResponse.addressNotFound();
       return Promise.reject(err);
     });
   },
 
   /**
-   * List locations in descending order of 'createdAt' timestamp.
-   * @param {number} skip - Number of locations to be skipped.
-   * @param {number} limit - Limit number of locations to be returned.
-   * @returns {Promise<Location[]>}
+   * List addresss in descending order of 'createdAt' timestamp.
+   * @param {number} skip - Number of addresss to be skipped.
+   * @param {number} limit - Limit number of addresss to be returned.
+   * @returns {Promise<Address[]>}
    */
   list({
     skip = 0,
@@ -103,5 +103,5 @@ schema.statics = {
   },
 };
 
-export type LocationModel = Model<ILocation> & ILocationModel;
-export const Location: LocationModel = model<ILocation>('Location', schema) as LocationModel;
+export type AddressModel = Model<IAddress> & IAddressModel;
+export const Address: AddressModel = model<IAddress>('Address', schema) as AddressModel;

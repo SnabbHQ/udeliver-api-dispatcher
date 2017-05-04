@@ -18,8 +18,8 @@ after(done => {
   done();
 });
 
-describe('## Location APIs', () => {
-  let location = {
+describe('## Address APIs', () => {
+  let address = {
     _id: '',
     address: 'Av/Whatever 1',
     address2: 'Apartment 2',
@@ -34,7 +34,7 @@ describe('## Location APIs', () => {
   describe('# Error Handling', () => {
     it('should handle mongoose CastError - Cast to ObjectId failed', (done) => {
       request(app)
-        .get('/api/locations/56z787zzz67fc')
+        .get('/api/addresses/56z787zzz67fc')
         .expect(httpStatus.INTERNAL_SERVER_ERROR)
         .then((res) => {
           expect(res.body.message).to.equal('Internal Server Error');
@@ -45,7 +45,7 @@ describe('## Location APIs', () => {
 
     it('should handle express validation error - address, city, country, postalCode are required', (done) => {
       request(app)
-        .post('/api/locations')
+        .post('/api/addresses')
         .send({
           mobileNumber: '1234567890'
         })
@@ -58,50 +58,50 @@ describe('## Location APIs', () => {
     });
   });
 
-  describe('# POST /api/locations', () => {
-    it('should create a new location', (done) => {
+  describe('# POST /api/addresses', () => {
+    it('should create a new address', (done) => {
       request(app)
-        .post('/api/locations')
-        .send(location)
+        .post('/api/addresses')
+        .send(address)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.address).to.equal(location.address);
-          expect(res.body.address2).to.equal(location.address2);
-          expect(res.body.city).to.equal(location.city);
-          expect(res.body.country).to.equal(location.country);
-          expect(res.body.latitude).to.equal(location.latitude);
-          expect(res.body.longitude).to.equal(location.longitude);
-          expect(res.body.postalCode).to.equal(location.postalCode);
-          expect(res.body.state).to.equal(location.state);
-          location = res.body;
+          expect(res.body.address).to.equal(address.address);
+          expect(res.body.address2).to.equal(address.address2);
+          expect(res.body.city).to.equal(address.city);
+          expect(res.body.country).to.equal(address.country);
+          expect(res.body.latitude).to.equal(address.latitude);
+          expect(res.body.longitude).to.equal(address.longitude);
+          expect(res.body.postalCode).to.equal(address.postalCode);
+          expect(res.body.state).to.equal(address.state);
+          address = res.body;
           done();
         })
         .catch(done);
     });
   });
 
-  describe('# GET /api/locations/:locationId', () => {
-    it('should get location details', (done) => {
+  describe('# GET /api/addresses/:addressId', () => {
+    it('should get address details', (done) => {
       request(app)
-        .get(`/api/locations/${location._id}`)
+        .get(`/api/addresses/${address._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.address).to.equal(location.address);
-          expect(res.body.address2).to.equal(location.address2);
-          expect(res.body.city).to.equal(location.city);
-          expect(res.body.country).to.equal(location.country);
-          expect(res.body.latitude).to.equal(location.latitude);
-          expect(res.body.longitude).to.equal(location.longitude);
-          expect(res.body.postalCode).to.equal(location.postalCode);
-          expect(res.body.state).to.equal(location.state);
+          expect(res.body.address).to.equal(address.address);
+          expect(res.body.address2).to.equal(address.address2);
+          expect(res.body.city).to.equal(address.city);
+          expect(res.body.country).to.equal(address.country);
+          expect(res.body.latitude).to.equal(address.latitude);
+          expect(res.body.longitude).to.equal(address.longitude);
+          expect(res.body.postalCode).to.equal(address.postalCode);
+          expect(res.body.state).to.equal(address.state);
           done();
         })
         .catch(done);
     });
 
-    it('should report error with message - Not found, when location does not exists', (done) => {
+    it('should report error with message - Not found, when address does not exists', (done) => {
       request(app)
-        .get('/api/locations/56c787ccc67fc16ccc1a5e92')
+        .get('/api/addresses/56c787ccc67fc16ccc1a5e92')
         .expect(httpStatus.NOT_FOUND)
         .then((res) => {
           expect(res.body.code).to.exist;
@@ -113,32 +113,32 @@ describe('## Location APIs', () => {
     });
   });
 
-  describe('# PUT /api/locations/:locationId', () => {
-    it('should update location details', (done) => {
-      location.address2 = 'Address Updated';
+  describe('# PUT /api/addresses/:addressId', () => {
+    it('should update address details', (done) => {
+      address.address2 = 'Address Updated';
       request(app)
-        .put(`/api/locations/${location._id}`)
-        .send(location)
+        .put(`/api/addresses/${address._id}`)
+        .send(address)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.address).to.equal(location.address);
-          expect(res.body.address2).to.equal(location.address2);
-          expect(res.body.city).to.equal(location.city);
-          expect(res.body.country).to.equal(location.country);
-          expect(res.body.latitude).to.equal(location.latitude);
-          expect(res.body.longitude).to.equal(location.longitude);
-          expect(res.body.postalCode).to.equal(location.postalCode);
-          expect(res.body.state).to.equal(location.state);
+          expect(res.body.address).to.equal(address.address);
+          expect(res.body.address2).to.equal(address.address2);
+          expect(res.body.city).to.equal(address.city);
+          expect(res.body.country).to.equal(address.country);
+          expect(res.body.latitude).to.equal(address.latitude);
+          expect(res.body.longitude).to.equal(address.longitude);
+          expect(res.body.postalCode).to.equal(address.postalCode);
+          expect(res.body.state).to.equal(address.state);
           done();
         })
         .catch(done);
     });
   });
 
-  describe('# GET /api/locations/', () => {
-    it('should get all locations', (done) => {
+  describe('# GET /api/addresses/', () => {
+    it('should get all addresses', (done) => {
       request(app)
-        .get('/api/locations')
+        .get('/api/addresses')
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('array');
@@ -147,9 +147,9 @@ describe('## Location APIs', () => {
         .catch(done);
     });
 
-    it('should get all locations (with limit and skip)', (done) => {
+    it('should get all addresses (with limit and skip)', (done) => {
       request(app)
-        .get('/api/locations')
+        .get('/api/addresses')
         .query({ limit: 10, skip: 1 })
         .expect(httpStatus.OK)
         .then((res) => {
@@ -160,10 +160,10 @@ describe('## Location APIs', () => {
     });
   });
 
-  describe('# DELETE /api/locations/', () => {
-    it('should delete location', (done) => {
+  describe('# DELETE /api/addresses/', () => {
+    it('should delete address', (done) => {
       request(app)
-        .delete(`/api/locations/${location._id}`)
+        .delete(`/api/addresses/${address._id}`)
         .expect(httpStatus.OK)
         .then(res => {
           expect(res.text).to.equal('OK');

@@ -86,11 +86,11 @@ class APIResponse {
     );
   }
 
-  public static locationNotFound(): APIError {
+  public static addressNotFound(): APIError {
     return new APIError(
       404006,
-      'LOCATION_NOT_FOUND',
-      'No such location exists',
+      'ADDRESS_NOT_FOUND',
+      'No such address exists',
       httpStatus.NOT_FOUND,
       true,
     );
@@ -149,11 +149,11 @@ class APIResponse {
     );
   }
 
-  public static locationAlreadyExists(): APIError {
+  public static addressAlreadyExists(): APIError {
     return new APIError(
       409005,
-      'LOCATION_ALREADY_EXISTS',
-      'A location with the given address already exists',
+      'ADDRESS_ALREADY_EXISTS',
+      'An address with the given street already exists',
       httpStatus.CONFLICT,
       true,
     );

@@ -2,8 +2,8 @@ import * as Joi from 'joi';
 import Regex from '../utils/Regex';
 
 export default {
-  // POST /api/locations
-  createLocation: {
+  // POST /api/addresss
+  createAddress: {
     body: {
       address: Joi.string().required(),
       address2: Joi.string().optional(),
@@ -16,8 +16,8 @@ export default {
     },
   },
 
-  // UPDATE /api/locations/:locationId
-  updateLocation: {
+  // UPDATE /api/addresss/:addressId
+  updateAddress: {
     body: {
       address: Joi.string().required(),
       address2: Joi.string().optional(),
@@ -29,7 +29,7 @@ export default {
       state: Joi.string().optional(),
     },
     params: {
-      locationId: Joi.string().hex().required(),
+      addressId: Joi.string().hex().required(),
     },
   },
 };
