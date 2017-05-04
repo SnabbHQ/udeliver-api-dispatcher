@@ -1,5 +1,6 @@
 import * as express from 'express';
-import customerRoutes from './customer/customer.route';
+import contactRoutes from './contact/contact.route';
+import locationRoutes from './location/location.route';
 import organizationRoutes from './organization/organization.route';
 import taskRoutes from './task/task.route';
 import teamRoutes from './team/team.route';
@@ -17,11 +18,14 @@ router.get('/health-check', (req, res) =>
 // mount auth routes at /auth
 // router.use('/auth', authRoutes);
 
-// mount customers routes at /customers
-router.use('/customers', customerRoutes);
+// mount contacts routes at /contacts
+router.use('/contacts', contactRoutes);
 
 // mount organizations routes at /organizations
 router.use('/organizations', organizationRoutes);
+
+// mount locations routes at /locations
+router.use('/locations', locationRoutes);
 
 // mount tasks routes at /tasks
 router.use('/tasks', taskRoutes);

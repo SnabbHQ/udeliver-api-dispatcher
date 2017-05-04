@@ -86,11 +86,21 @@ class APIResponse {
     );
   }
 
-  public static customerNotFound(): APIError {
+  public static locationNotFound(): APIError {
     return new APIError(
       404006,
-      'CUSOMTER_NOT_FOUND',
-      'No such customer exists',
+      'LOCATION_NOT_FOUND',
+      'No such location exists',
+      httpStatus.NOT_FOUND,
+      true,
+    );
+  }
+
+  public static contactNotFound(): APIError {
+    return new APIError(
+      404007,
+      'CONTACT_NOT_FOUND',
+      'No such contact exists',
       httpStatus.NOT_FOUND,
       true,
     );
@@ -139,11 +149,21 @@ class APIResponse {
     );
   }
 
-  public static customerAlreadyExists(): APIError {
+  public static locationAlreadyExists(): APIError {
     return new APIError(
       409005,
-      'CUSTOMER_ALREADY_EXISTS',
-      'A customer with the given email already exists',
+      'LOCATION_ALREADY_EXISTS',
+      'A location with the given address already exists',
+      httpStatus.CONFLICT,
+      true,
+    );
+  }
+
+  public static contactAlreadyExists(): APIError {
+    return new APIError(
+      409005,
+      'CONTACT_ALREADY_EXISTS',
+      'A contact with the gien email already exists',
       httpStatus.CONFLICT,
       true,
     );
